@@ -1,6 +1,7 @@
 carregarEmpresa()
 carregarAsg()
 carregarVendedor()
+carregarGerente()
 carregaDono()
 imprimeAsgs()
 imprimeVendedores()

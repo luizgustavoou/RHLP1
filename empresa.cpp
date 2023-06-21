@@ -101,7 +101,6 @@ void Empresa::carregaFuncoes()
         string linha;
         while (getline(arquivo, linha))
         {
-            // cout << linha << endl;
             if (linha == "carregarEmpresa()")
             {
                 this->carregarEmpresa();
@@ -113,6 +112,10 @@ void Empresa::carregaFuncoes()
             else if (linha == "carregarVendedor()")
             {
                 this->carregarVendedor();
+            }
+            else if (linha == "carregarGerente()")
+            {
+                this->carregarGerente();
             }
             else if (linha == "carregaDono()")
             {
