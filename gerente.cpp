@@ -1,56 +1,76 @@
 #include <iostream>
 #include "gerente.hpp"
 #include "util.hpp"
+
 using namespace std;
 
-
-//Construtor gerente
-Gerente::Gerente(){
-}
-Gerente::Gerente(float participacaoLucros, std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal, std::string estadoCivil, int qtdFilhos, float salario, std::string matricula, Data ingressoEmpresa){
-  this->setParticipacaoLucros(participacaoLucros);
-  this->setNome(nome);
-  this->setCpf(cpf);
-  this->setDataNascimento(dataNascimento);
-  this->setEnderecoPessoal(enderecoPessoal);
-  this->setEstadoCivil(estadoCivil);
-  this->setQtdFilhos(qtdFilhos);
-  this->setSalario(salario);
-  this->setMatricula(matricula);
-  this->setIngressoEmpresa(ingressoEmpresa);
+Gerente::Gerente()
+{
+    // cout << "Gerente criado!" << endl;
 }
 
+Gerente::Gerente(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal, string estadoCivil, int qtdFilhos, float salario, string matricula, Data ingressoEmpresa, float participacaoLucros)
+{
+    this->setNome(nome);
+    this->setCpf(cpf);
+    this->setDataNascimento(dataNascimento);
+    this->setEnderecoPessoal(enderecoPessoal);
+    this->setEstadoCivil(estadoCivil);
+    this->setQtdFilhos(qtdFilhos);
+    this->setSalario(salario);
+    this->setMatricula(matricula);
+    this->setIngressoEmpresa(ingressoEmpresa);
+    this->setParticipacaoLucros(participacaoLucros);
+}
 
-//Gets e Sets
-float Gerente::getParticipacaoLucros(){
-  return this->participacaoLucros;
-};
-void Gerente::setParticipacaoLucros(float participacaoLucros){
-  this->participacaoLucros = participacaoLucros;
-};
+float Gerente::getParticipacaoLucros()
+{
+    return this->_participacaoLucros;
+}
+void Gerente::setParticipacaoLucros(float participacaoLucros)
+{
+    this->_participacaoLucros = participacaoLucros;
+}
 
+float Gerente::calcularSalario(int diasFaltas)
+{
+    // TODO: Criar uma const da qtde de dias do mês: 30
+    float salario = this->getSalario();
+    float salarioPorFalta = salario / 30;
+    float descontaFalta = salarioPorFalta * diasFaltas;
+    float participacaoLucros = this->getParticipacaoLucros();
+    float qtdFilhos = this->getQtdFilhos();
 
-//Outras funções
-float Gerente::calcularSalario(int diasFaltas){
-  float salario = this->getSalario(); //Pega o salario
-  salario -= (salario/30)*diasFaltas;//retira o valor das faltas
-  salario += getParticipacaoLucros();//soma a participação dos lucros
-  salario += 100*getQtdFilhos();//soma o valor dos filhos
+    salario -= descontaFalta;
+    salario = salario + participacaoLucros;
+    salario += qtdFilhos * 100;
 
-  return salario;//retorna o salario
-};
+    return salario;
+}
 
-float Gerente::calcularRecisao(Data desligamento){
-  Data ingresso = this->getIngressoEmpresa();
-  float salario = this->getSalario();
+float Gerente::calcularRecisao(Data desligamento)
+{
+    Data ingresso = this->getIngressoEmpresa();
+    float salario = this->getSalario();
+    float anoIngresso = calcularAnoData(ingresso);
+    float anoDesligamento = calcularAnoData(desligamento);
+    float anoTrabalhado = anoDesligamento - anoIngresso;
 
-  float anoIngresso = ingresso.ano + ((float)ingresso.mes / 12) + ((float)ingresso.dia / 365);//Pega o ano de entrada
+    float recisao = anoTrabalhado * salario;
 
-  float anoDesligamento = desligamento.ano + ((float)desligamento.mes / 12) + ((float)desligamento.dia / 365);//Pega o ano de saida
+    return recisao;
+}
 
-  float anoTrabalhado = anoDesligamento - anoIngresso;//Quantidade de anos trabalhados
+// FUNÇÕES FORA DA PROVA
+void Gerente::imprimirAtributosGerente()
+{
+    this->imprimirAtributosPessoa();
 
-  float recisao = anoTrabalhado * salario;
+    cout << this->getMatricula() << endl;
+    cout << this->getSalario() << endl;
+    cout << this->getParticipacaoLucros() << endl;
 
-  return recisao;
-};
+    cout << this->getIngressoEmpresa().ano << endl;
+    cout << this->getIngressoEmpresa().mes << endl;
+    cout << this->getIngressoEmpresa().dia << endl;
+}

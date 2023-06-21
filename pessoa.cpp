@@ -1,12 +1,16 @@
 #include <iostream>
 #include "pessoa.hpp"
 #include "util.hpp"
+
 using namespace std;
 
-Pessoa::Pessoa(){
+Pessoa::Pessoa()
+{
+    // cout << "Pessoa criada!" << endl;
 }
 
-Pessoa::Pessoa(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal, string estadoCivil, int qtdFilhos){
+Pessoa::Pessoa(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal, string estadoCivil, int qtdFilhos)
+{
     this->nome = nome;
     this->cpf = cpf;
     this->dataNascimento = dataNascimento;
@@ -15,46 +19,78 @@ Pessoa::Pessoa(string nome, string cpf, Data dataNascimento, Endereco enderecoPe
     this->qtdFilhos = qtdFilhos;
 }
 
-
-//Gets e Sets
-string Pessoa::getNome(){
-  return this->nome;
+string Pessoa::getNome()
+{
+    return this->nome;
 }
-void Pessoa::setNome(string nome){
-  this->nome = nome;
+string Pessoa::getCpf()
+{
+    return this->cpf;
 }
-
-string Pessoa::getCpf(){
-  return this->cpf;
-}
-void Pessoa::setCpf(string cpf){
-  this->cpf = cpf;
+Data Pessoa::getDataNascimento()
+{
+    return this->dataNascimento;
 }
 
-Data Pessoa::getDataNascimento(){
-  return this->dataNascimento;
-}
-void Pessoa::setDataNascimento(Data dataNascimento){
-  this->dataNascimento = dataNascimento;
+Endereco Pessoa::getEnderecoPessoal()
+{
+    return this->enderecoPessoal;
 }
 
-Endereco Pessoa::getEnderecoPessoal(){
-  return this->enderecoPessoal;
-}
-void Pessoa::setEnderecoPessoal(Endereco enderecoPessoal){
-  this->enderecoPessoal = enderecoPessoal;
+string Pessoa::getEstadoCivil()
+{
+    return this->estadoCivil;
 }
 
-string Pessoa::getEstadoCivil(){
-  return this->estadoCivil;
-}
-void Pessoa::setEstadoCivil(string estadoCivil){
-  this->estadoCivil = estadoCivil;
+int Pessoa::getQtdFilhos()
+{
+    return this->qtdFilhos;
 }
 
-int Pessoa::getQtdFilhos(){
-  return this->qtdFilhos;
+void Pessoa::setNome(string nome)
+{
+    this->nome = nome;
 }
-void Pessoa::setQtdFilhos(int qtdFilhos){
-  this->qtdFilhos = qtdFilhos;
+
+void Pessoa::setCpf(string cpf)
+{
+    this->cpf = cpf;
+}
+
+void Pessoa::setDataNascimento(Data dataNascimento)
+{
+    this->dataNascimento = dataNascimento;
+}
+
+void Pessoa::setEnderecoPessoal(Endereco enderecoPessoal)
+{
+    this->enderecoPessoal = enderecoPessoal;
+}
+
+void Pessoa::setEstadoCivil(string estadoCivil)
+{
+    this->estadoCivil = estadoCivil;
+}
+
+void Pessoa::setQtdFilhos(int qtdFilhos)
+{
+    this->qtdFilhos = qtdFilhos;
+}
+
+//
+
+void Pessoa::imprimirAtributosPessoa()
+{
+    cout << this->getNome() << endl;
+    cout << this->getCpf() << endl;
+    cout << this->getQtdFilhos() << endl;
+    cout << this->getEstadoCivil() << endl;
+    cout << this->getEnderecoPessoal().cidade << endl;
+    cout << this->getEnderecoPessoal().cep << endl;
+    cout << this->getEnderecoPessoal().bairro << endl;
+    cout << this->getEnderecoPessoal().rua << endl;
+    cout << this->getEnderecoPessoal().numero << endl;
+    cout << this->getDataNascimento().ano << endl;
+    cout << this->getDataNascimento().mes << endl;
+    cout << this->getDataNascimento().dia << endl;
 }

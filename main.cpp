@@ -1,25 +1,38 @@
 #include <iostream>
+using namespace std;
+
+#include "util.hpp"
 #include "pessoa.hpp"
 #include "funcionario.hpp"
 #include "asg.hpp"
-#include "util.hpp"
+#include "vendedor.hpp"
 #include "gerente.hpp"
 #include "empresa.hpp"
-using namespace std;
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[])
+{
 
-    Data dataHoje;
-    dataHoje.dia = stoi(argv[1]);
-    dataHoje.mes = stoi(argv[2]);
-    dataHoje.ano = stoi(argv[3]);
+    Data DataHoje;
+    DataHoje.dia = stoi(argv[1]);
+    DataHoje.mes = stoi(argv[2]);
+    DataHoje.ano = stoi(argv[3]);
 
-    Empresa *atacadoDosCalcado = new Empresa("Atacado dos Calcados",
-"40.101.588/0001-98", 156289.56, dataHoje);
+    Empresa *atacadoDosCalcado = new Empresa("xxxxxxxx", "yyyyyyyy", 111111, DataHoje);
 
-    atacadoDosCalcado->carregarFuncoes();
+    atacadoDosCalcado->carregaFuncoes();
+    // atacadoDosCalcado->carregarEmpresa();
+    // atacadoDosCalcado->carregarAsg();
+    // atacadoDosCalcado->carregarVendedor();
+    // atacadoDosCalcado->carregarGerente();
+    // atacadoDosCalcado->carregaDono();
+    // atacadoDosCalcado->imprimeAsgs();
+    // atacadoDosCalcado->imprimeVendedores();
+    // atacadoDosCalcado->imprimeGerentes();
+    // atacadoDosCalcado->imprimeDono();
+    // atacadoDosCalcado->buscaFuncionario("72.412-3");
+    // atacadoDosCalcado->calculaSalarioFuncionario("72.412-3");
+    // atacadoDosCalcado->calculaTodoOsSalarios();
+    // atacadoDosCalcado->calcularRecisao("72.412-3", DataHoje);
 
-    cout << endl;
-  
     return 0;
 }

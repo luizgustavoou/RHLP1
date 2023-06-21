@@ -3,7 +3,8 @@
 #include <iostream>
 #include "util.hpp"
 
-class Pessoa{
+class Pessoa
+{
     std::string nome;
     std::string cpf;
     Data dataNascimento;
@@ -16,22 +17,20 @@ public:
     Pessoa(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal, std::string estadoCivil, int qtdFilhos);
 
     std::string getNome();
-    void setNome(std::string nome);
-
     std::string getCpf();
-    void setCpf(std::string cpf);
-
     Data getDataNascimento();
-    void setDataNascimento(Data dataNascimento);
-
     Endereco getEnderecoPessoal();
-    void setEnderecoPessoal(Endereco enderecoPessoal);
-
     std::string getEstadoCivil();
-    void setEstadoCivil(std::string estadoCivil);
-
     int getQtdFilhos();
+
+    void setNome(std::string nome);
+    void setCpf(std::string cpf);
+    void setDataNascimento(Data dataNascimento);
+    void setEnderecoPessoal(Endereco enderecoPessoal);
+    void setEstadoCivil(std::string estadoCivil);
     void setQtdFilhos(int qtdFilhos);
+
+    void imprimirAtributosPessoa();
 };
 
 #endif

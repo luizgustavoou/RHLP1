@@ -1,13 +1,16 @@
 #include <iostream>
 #include "vendedor.hpp"
+#include "util.hpp"
+
 using namespace std;
 
-
-//Construtores de vendedor
-Vendedor::Vendedor(){
+Vendedor::Vendedor()
+{
+    // cout << "Vendedor criado!" << endl;
 }
-Vendedor::Vendedor(char tipoVendedor, string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal, string estadoCivil, int qtdFilhos, float salario, string matricula, Data ingressoEmpresa){
-    this->setTipoVendedor(tipoVendedor);
+
+Vendedor::Vendedor(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal, string estadoCivil, int qtdFilhos, float salario, string matricula, Data ingressoEmpresa, char tipoVendedor)
+{
     this->setNome(nome);
     this->setCpf(cpf);
     this->setDataNascimento(dataNascimento);
@@ -17,47 +20,75 @@ Vendedor::Vendedor(char tipoVendedor, string nome, string cpf, Data dataNascimen
     this->setSalario(salario);
     this->setMatricula(matricula);
     this->setIngressoEmpresa(ingressoEmpresa);
+    this->setTipoVendedor(tipoVendedor);
 }
 
+float Vendedor::getGratificacao()
+{
+    char tipoVendedor = this->getTipoVendedor();
 
-//Gets e Sets
-char Vendedor::getTipoVendedor(){
-  return this->tipoVendedor;
-}
-void Vendedor::setTipoVendedor(char tipoVendedor){
-  this->tipoVendedor = tipoVendedor;
-}
-
-
-//Outras funções
-float Vendedor::calcularSalario(int diasFaltas){
-  float salario = this->getSalario();
-  salario -= (salario/30) * diasFaltas; //retira o salario dos dias em que faltou
-  if(getTipoVendedor() == 'A'){
-    salario += salario*0.15;
-  }
-  else if(getTipoVendedor() == 'B'){
-    salario += salario*0.10;
-  }
-  else if(getTipoVendedor() == 'C'){
-    salario += salario*0.05;
-  }
-  salario += 100*getQtdFilhos();
-  
-  return salario;
+    if (tipoVendedor == 'A')
+    {
+        return 0.25;
+    }
+    else if (tipoVendedor == 'B')
+    {
+        return 0.10;
+    }
+    else
+    {
+        return 0.05;
+    }
 }
 
-float Vendedor::calcularRecisao(Data desligamento){
-  Data ingresso = this->getIngressoEmpresa();
-  float salario = this->getSalario();
+char Vendedor::getTipoVendedor()
+{
+    return this->_tipoVendedor;
+}
+void Vendedor::setTipoVendedor(char tipoVendedor)
+{
+    this->_tipoVendedor = tipoVendedor;
+}
 
-  float anoIngresso = ingresso.ano + ((float)ingresso.mes / 12) + ((float)ingresso.dia / 365);//Pega o ano de entrada
+float Vendedor::calcularSalario(int diasFaltas)
+{
+    // TODO: Criar uma const da qtde de dias do mês: 30
+    float salario = this->getSalario();
+    float salarioPorFalta = salario / 30;
+    float descontaFalta = salarioPorFalta * diasFaltas;
+    float qtdFilhos = this->getQtdFilhos();
+    float gratificacao = this->getGratificacao();
 
-  float anoDesligamento = desligamento.ano + ((float)desligamento.mes / 12) + ((float)desligamento.dia / 365);//Pega o ano de saida
+    salario -= descontaFalta;
+    salario = salario * (1 + gratificacao);
+    salario += qtdFilhos * 100;
 
-  float anoTrabalhado = anoDesligamento - anoIngresso;//Quantidade de anos trabalhados
+    return salario;
+}
 
-  float recisao = anoTrabalhado * salario;
+float Vendedor::calcularRecisao(Data desligamento)
+{
+    Data ingresso = this->getIngressoEmpresa();
+    float salario = this->getSalario();
+    float anoIngresso = calcularAnoData(ingresso);
+    float anoDesligamento = calcularAnoData(desligamento);
+    float anoTrabalhado = anoDesligamento - anoIngresso;
 
-  return recisao;
+    float recisao = anoTrabalhado * salario;
+
+    return recisao;
+}
+
+// FUNÇÕES FORA DA PROVA
+void Vendedor::imprimirAtributosVendedor()
+{
+    this->imprimirAtributosPessoa();
+
+    cout << this->getMatricula() << endl;
+    cout << this->getSalario() << endl;
+    cout << this->getTipoVendedor() << endl;
+
+    cout << this->getIngressoEmpresa().ano << endl;
+    cout << this->getIngressoEmpresa().mes << endl;
+    cout << this->getIngressoEmpresa().dia << endl;
 }

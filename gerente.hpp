@@ -5,17 +5,21 @@
 #include "funcionario.hpp"
 #include "util.hpp"
 
-class Gerente : public Pessoa, public Funcionario{
-  float participacaoLucros;
+class Gerente : public Pessoa, public Funcionario
+{
+    float _participacaoLucros;
 
-  public:
+public:
     Gerente();
-    Gerente(float participacaoLucros, std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal, std::string estadoCivil, int qtdFilhos, float salario, std::string matricula, Data ingressoEmpresa);
-  
+    Gerente(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal, std::string estadoCivil, int qtdFilhos, float salario, std::string matricula, Data ingressoEmpresa, float participacaoLucros);
+
     float getParticipacaoLucros();
     void setParticipacaoLucros(float participacaoLucros);
-  
+
     float calcularSalario(int diasFaltas);
     float calcularRecisao(Data desligamento);
+
+    void imprimirAtributosGerente();
 };
+
 #endif

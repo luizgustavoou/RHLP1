@@ -1,55 +1,77 @@
 #include <iostream>
 #include "asg.hpp"
+#include "util.hpp"
+
 using namespace std;
 
-//Construtores ASG
-Asg::Asg(){
+Asg::Asg()
+{
+    // cout << "Asg criado!" << endl;
 }
-Asg::Asg(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal, string estadoCivil, int qtdFilhos, float adicionalInsalubridade, float salario, string matricula, Data ingressoEmpresa){
+
+Asg::Asg(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal, string estadoCivil, int qtdFilhos, float salario, string matricula, Data ingressoEmpresa, float adicionalInsalubridade)
+{
     this->setNome(nome);
     this->setCpf(cpf);
     this->setDataNascimento(dataNascimento);
     this->setEnderecoPessoal(enderecoPessoal);
     this->setEstadoCivil(estadoCivil);
     this->setQtdFilhos(qtdFilhos);
-    this->setAdicionalInsalubridade(adicionalInsalubridade);
     this->setSalario(salario);
     this->setMatricula(matricula);
     this->setIngressoEmpresa(ingressoEmpresa);
+    this->setAdicionalInsalubridade(adicionalInsalubridade);
 }
 
-
-//Gets e sets
-float Asg::getAdicionalInsalubridade(){
-    return this->adicionalInsalubridade;
+float Asg::getAdicionalInsalubridade()
+{
+    return this->_adicionalInsalubridade;
 }
-void Asg::setAdicionalInsalubridade(float adicionalInsalubridade){
-    this->adicionalInsalubridade = adicionalInsalubridade;
+void Asg::setAdicionalInsalubridade(float adicionalInsalubridade)
+{
+    this->_adicionalInsalubridade = adicionalInsalubridade;
 }
 
+float Asg::calcularSalario(int diasFaltas)
+{
+    // TODO: Criar uma const da qtde de dias do mês: 30
+    float salario = this->getSalario();
+    float salarioPorFalta = salario / 30;
+    float descontaFalta = salarioPorFalta * diasFaltas;
+    float adicionalInsalubridade = this->getAdicionalInsalubridade();
+    float qtdFilhos = this->getQtdFilhos();
 
-//Outras funções
-float Asg::calcularSalario(int diasFaltas){
-    float salario = this->getSalario();//Salario funcionario
-    salario -= (salario/30)*diasFaltas;//Retira dias de faltas
+    salario -= descontaFalta;
+    salario = salario * (1 + adicionalInsalubridade);
+    salario += qtdFilhos * 100;
 
-    float adicionalInsalubridade = this->getAdicionalInsalubridade();//Pega o valor da insalubridade
-    float qtdFilhos = 100*this->getQtdFilhos(); //Pega a quantidade de filhos e calcula o bônus
-
-    salario = salario * (1 + adicionalInsalubridade) + qtdFilhos; //Soma ao salario o adicional de insalubridade e o bônus de quantidade de filhos
     return salario;
 }
 
-float Asg::calcularRecisao(Data desligamento){
+float Asg::calcularRecisao(Data desligamento)
+{
     Data ingresso = this->getIngressoEmpresa();
     float salario = this->getSalario();
-
-    float anoIngresso = ingresso.ano + ((float)ingresso.mes / 12) + ((float)ingresso.dia / 365);//Pega o ano de entrada
-
-    float anoDesligamento = desligamento.ano + ((float)desligamento.mes / 12) + ((float)desligamento.dia / 365);//Pega o ano de saida
-
-    float anoTrabalhado = anoDesligamento - anoIngresso;//Quantidade de anos trabalhados
+    float anoIngresso = calcularAnoData(ingresso);
+    float anoDesligamento = calcularAnoData(desligamento);
+    float anoTrabalhado = anoDesligamento - anoIngresso;
 
     float recisao = anoTrabalhado * salario;
+
     return recisao;
+}
+
+// FUNÇÕES FORA DA PROVA
+void Asg::imprimirAtributosAsg()
+{
+
+    this->imprimirAtributosPessoa();
+
+    cout << this->getMatricula() << endl;
+    cout << this->getSalario() << endl;
+    cout << this->getAdicionalInsalubridade() << endl;
+
+    cout << this->getIngressoEmpresa().ano << endl;
+    cout << this->getIngressoEmpresa().mes << endl;
+    cout << this->getIngressoEmpresa().dia << endl;
 }

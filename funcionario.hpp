@@ -3,19 +3,19 @@
 #include <iostream>
 #include "util.hpp"
 
-class Funcionario{
+class Funcionario
+{
     float salario;
     std::string matricula;
     Data ingressoEmpresa;
 
 public:
     float getSalario();
-    void setSalario(float salario);
-
     std::string getMatricula();
-    void setMatricula(std::string matricula);
-
     Data getIngressoEmpresa();
+
+    void setSalario(float salario);
+    void setMatricula(std::string matricula);
     void setIngressoEmpresa(Data ingressoEmpresa);
 
     virtual float calcularSalario(int diasFaltas) = 0;
