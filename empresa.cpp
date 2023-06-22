@@ -119,7 +119,7 @@ void Empresa::carregaFuncoes()
             }
             else if (linha == "carregaDono()")
             {
-                this->carregarAsg();
+                this->carregaDono();
             }
             else if (linha == "imprimeAsgs()")
             {
@@ -478,6 +478,11 @@ void Empresa::carregarGerente()
             gerentes.push_back(gerente1);
         }
 
+        for (auto ii : this->getGerentes())
+        {
+            cout << ii.getNome() << endl;
+        }
+
         cout << "********* CARREGAR GERENTES CONCLUÍDO*********" << endl
              << endl;
     }
@@ -816,13 +821,38 @@ void Empresa::escreverArquivoRelatorioDemissional(T funcionario, fstream &arquiv
     arquivo << "Valor de rescisão: " << funcionario.calcularRecisao(desligamento) << endl;
     arquivo << "******************************" << endl;
     arquivo << "Tempo de Trabalho: " << endl;
+}
 
-    cout << funcionario.getNome() << endl;
+template <typename T>
+bool Empresa::busca(vector<T> &funcionarios, std::string matricula, fstream &arquivo, Data desligamento, string cargo)
+{
+    bool existe = false;
+
+    for (typename vector<T>::iterator it = funcionarios.begin(); it != funcionarios.end(); it++)
+    {
+        if (it->getMatricula() == matricula)
+        {
+            escreverArquivoRelatorioDemissional<T>(*it, arquivo, desligamento, cargo);
+            existe = true;
+            cout << "Funcionário " << it->getNome() << " demitido com sucesso." << endl;
+            funcionarios.erase(it);
+            arquivo.close();
+            break;
+        }
+    }
+
+    return existe;
 }
 
 void Empresa::demitirFuncionario(string matricula, Data desligamento)
 {
     cout << "********* DEMITINDO FUNCIONÁRIO...*********" << endl;
+
+    // cout << this->getGerentes().size() << endl;
+    // for (auto ii : this->getGerentes())
+    // {
+    //     cout << ii.getNome() << endl;
+    // }
 
     try
     {
@@ -840,61 +870,16 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento)
         vector<Vendedor> &vendedores = this->getVendedores();
         vector<Gerente> &gerentes = this->getGerentes();
 
-        // Vendedores
-        for (vector<Vendedor>::iterator it = vendedores.begin(); it != vendedores.end(); it++)
-        {
-            if (it->getMatricula() == matricula)
-            {
-                // arquivo << "##############################" << endl;
-                // arquivo << "    Relatorio Demissional" << endl;
-                // arquivo << "##############################" << endl;
-                // arquivo << "Cargo: Vendedor" << endl;
-                // arquivo << "Nome: " << it->getNome() << endl;
-                // arquivo << "CPF: " << it->getCpf() << endl;
-                // arquivo << "Matrícula: " << it->getMatricula() << endl;
-                // arquivo << "Data de ingresso: " << it->getIngressoEmpresa().dia << "/" << it->getIngressoEmpresa().mes << "/" << it->getIngressoEmpresa().ano << endl;
-                // arquivo << "Data de demissão: " << desligamento.dia << "/" << desligamento.mes << "/" << desligamento.ano << endl;
-                // arquivo << "******************************" << endl;
-                // arquivo << "Valor de rescisão: " << it->calcularRecisao(desligamento) << endl;
-                // arquivo << "******************************" << endl;
-                // arquivo << "Tempo de Trabalho: " << endl;
-                escreverArquivoRelatorioDemissional<Vendedor>(*it, arquivo, desligamento, "Vendedor");
-                vendedores.erase(it);
+        // if (this->busca<Asg>(asgs, matricula, arquivo, desligamento, "Asg"))
+        //     return;
+        // if (this->busca<Vendedor>(vendedores, matricula, arquivo, desligamento, "Vendedor"))
+        // return;
+        if (this->busca<Gerente>(gerentes, matricula, arquivo, desligamento, "Gerente"))
+            return;
 
-                cout << "********* FUNCIONÁRIO DEMITIDO  *********" << endl;
-                arquivo.close();
-                return;
-            }
-        }
-
-        // Asgs
-        for (vector<Asg>::iterator it = asgs.begin(); it != asgs.end(); it++)
-        {
-            if (it->getMatricula() == matricula)
-            {
-                escreverArquivoRelatorioDemissional<Asg>(*it, arquivo, desligamento, "Asg");
-                asgs.erase(it);
-
-                cout << "********* FUNCIONÁRIO DEMITIDO  *********" << endl;
-                arquivo.close();
-                return;
-            }
-        }
-
-        // Gerente
-        for (vector<Gerente>::iterator it = gerentes.begin(); it != gerentes.end(); it++)
-        {
-            if (it->getMatricula() == matricula)
-            {
-                escreverArquivoRelatorioDemissional<Gerente>(*it, arquivo, desligamento, "Gerente");
-                gerentes.erase(it);
-
-                cout << "********* FUNCIONÁRIO DEMITIDO  *********" << endl;
-                arquivo.close();
-                return;
-            }
-        }
+        throw runtime_error("Funcionário não encontrado!");
     }
+
     catch (exception &e)
     {
         cout << "Erro: " << e.what() << endl;

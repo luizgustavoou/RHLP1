@@ -7,6 +7,7 @@
 #include "asg.hpp"
 #include "vendedor.hpp"
 #include "gerente.hpp"
+#include <vector>
 
 class Empresa
 {
@@ -55,6 +56,9 @@ public:
 
     template <typename T>
     void escreverArquivoRelatorioDemissional(T funcionario, std::fstream &arquivo, Data desligamento, std::string cargo);
+
+    template <typename T>
+    bool busca(std::vector<T> &funcionarios, std::string matricula, std::fstream &arquivo, Data desligamento, std::string cargo);
 };
 
 #endif
