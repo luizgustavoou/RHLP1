@@ -58,7 +58,7 @@ public:
     void escreverArquivoRelatorioDemissional(T funcionario, std::fstream &arquivo, Data desligamento, std::string cargo);
 
     template <typename T>
-    bool busca(std::vector<T> &funcionarios, std::string matricula, std::fstream &arquivo, Data desligamento, std::string cargo);
+    bool buscaFuncionarioDemite(std::vector<T> &funcionarios, std::string matricula, std::fstream &arquivo, Data desligamento, std::string cargo);
 };
 
 #endif

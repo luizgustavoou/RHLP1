@@ -1,8 +1,8 @@
 ##############################
     Relatorio Demissional
 ##############################
-Cargo: Gerente
-Nome: Gustavo Luiz de Souza
+Cargo: Vendedor
+Nome: Luiz de Souza
 CPF: 320.078.587-15
 Matrícula: 72.412-3
 Data de ingresso: 30/6/2015

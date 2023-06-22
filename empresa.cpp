@@ -824,7 +824,7 @@ void Empresa::escreverArquivoRelatorioDemissional(T funcionario, fstream &arquiv
 }
 
 template <typename T>
-bool Empresa::busca(vector<T> &funcionarios, std::string matricula, fstream &arquivo, Data desligamento, string cargo)
+bool Empresa::buscaFuncionarioDemite(vector<T> &funcionarios, std::string matricula, fstream &arquivo, Data desligamento, string cargo)
 {
     bool existe = false;
 
@@ -836,7 +836,7 @@ bool Empresa::busca(vector<T> &funcionarios, std::string matricula, fstream &arq
             existe = true;
             cout << "Funcionário " << it->getNome() << " demitido com sucesso." << endl;
             funcionarios.erase(it);
-            arquivo.close();
+            arquivo.close(); // qeuria colocar antes do return existe, mas está empatando (ATT: Está dando erro pois está fechando o arquivo mesmo sem ser o cara, enfim arrumar isso dps)
             break;
         }
     }
@@ -847,12 +847,6 @@ bool Empresa::busca(vector<T> &funcionarios, std::string matricula, fstream &arq
 void Empresa::demitirFuncionario(string matricula, Data desligamento)
 {
     cout << "********* DEMITINDO FUNCIONÁRIO...*********" << endl;
-
-    // cout << this->getGerentes().size() << endl;
-    // for (auto ii : this->getGerentes())
-    // {
-    //     cout << ii.getNome() << endl;
-    // }
 
     try
     {
@@ -870,11 +864,11 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento)
         vector<Vendedor> &vendedores = this->getVendedores();
         vector<Gerente> &gerentes = this->getGerentes();
 
-        // if (this->busca<Asg>(asgs, matricula, arquivo, desligamento, "Asg"))
-        //     return;
-        // if (this->busca<Vendedor>(vendedores, matricula, arquivo, desligamento, "Vendedor"))
-        // return;
-        if (this->busca<Gerente>(gerentes, matricula, arquivo, desligamento, "Gerente"))
+        if (this->buscaFuncionarioDemite<Asg>(asgs, matricula, arquivo, desligamento, "Asg"))
+            return;
+        if (this->buscaFuncionarioDemite<Vendedor>(vendedores, matricula, arquivo, desligamento, "Vendedor"))
+            return;
+        if (this->buscaFuncionarioDemite<Gerente>(gerentes, matricula, arquivo, desligamento, "Gerente"))
             return;
 
         throw runtime_error("Funcionário não encontrado!");
