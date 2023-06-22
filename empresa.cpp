@@ -119,7 +119,7 @@ void Empresa::carregaFuncoes()
             }
             else if (linha == "carregaDono()")
             {
-                this->carregarAsg();
+                this->carregaDono();
             }
             else if (linha == "imprimeAsgs()")
             {
