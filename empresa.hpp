@@ -54,7 +54,7 @@ public:
     void demitirFuncionario(std::string matricula, Data desligamento);
 
     template <typename T>
-    T busca(std::string matricula);
+    void escreverArquivoRelatorioDemissional(T funcionario, std::fstream &arquivo, Data desligamento, std::string cargo);
 };
 
 #endif

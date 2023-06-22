@@ -800,6 +800,26 @@ void Empresa::calcularRecisao(string matricula, Data desligamento)
          << endl;
 }
 
+template <typename T>
+void Empresa::escreverArquivoRelatorioDemissional(T funcionario, fstream &arquivo, Data desligamento, string cargo)
+{
+    arquivo << "##############################" << endl;
+    arquivo << "    Relatorio Demissional" << endl;
+    arquivo << "##############################" << endl;
+    arquivo << "Cargo: " << cargo << endl;
+    arquivo << "Nome: " << funcionario.getNome() << endl;
+    arquivo << "CPF: " << funcionario.getCpf() << endl;
+    arquivo << "Matrícula: " << funcionario.getMatricula() << endl;
+    arquivo << "Data de ingresso: " << funcionario.getIngressoEmpresa().dia << "/" << funcionario.getIngressoEmpresa().mes << "/" << funcionario.getIngressoEmpresa().ano << endl;
+    arquivo << "Data de demissão: " << desligamento.dia << "/" << desligamento.mes << "/" << desligamento.ano << endl;
+    arquivo << "******************************" << endl;
+    arquivo << "Valor de rescisão: " << funcionario.calcularRecisao(desligamento) << endl;
+    arquivo << "******************************" << endl;
+    arquivo << "Tempo de Trabalho: " << endl;
+
+    cout << funcionario.getNome() << endl;
+}
+
 void Empresa::demitirFuncionario(string matricula, Data desligamento)
 {
     cout << "********* DEMITINDO FUNCIONÁRIO...*********" << endl;
@@ -820,32 +840,60 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento)
         vector<Vendedor> &vendedores = this->getVendedores();
         vector<Gerente> &gerentes = this->getGerentes();
 
-        //Vendedores
+        // Vendedores
         for (vector<Vendedor>::iterator it = vendedores.begin(); it != vendedores.end(); it++)
         {
             if (it->getMatricula() == matricula)
             {
-                arquivo << "##############################" << endl;
-                arquivo << "    Relatorio Demissional" << endl;
-                arquivo << "##############################" << endl;
-                arquivo << "Cargo: Vendedor" << endl;
-                arquivo << "Nome: " << it->getNome() << endl;
-                arquivo << "CPF: " << it->getCpf() << endl;
-                arquivo << "Matrícula: " << it->getMatricula() << endl;
-                arquivo << "Data de ingresso: " << it->getIngressoEmpresa().dia << "/" << it->getIngressoEmpresa().mes << "/" << it->getIngressoEmpresa().ano << endl;
-                arquivo << "Data de demissão: " << desligamento.dia << "/" << desligamento.mes << "/" << desligamento.ano << endl;
-                arquivo << "******************************" << endl;
-                arquivo << "Valor de rescisão: " << it->calcularRecisao(desligamento) << endl;
-                arquivo << "******************************" << endl;
-                arquivo << "Tempo de Trabalho: " << endl;
+                // arquivo << "##############################" << endl;
+                // arquivo << "    Relatorio Demissional" << endl;
+                // arquivo << "##############################" << endl;
+                // arquivo << "Cargo: Vendedor" << endl;
+                // arquivo << "Nome: " << it->getNome() << endl;
+                // arquivo << "CPF: " << it->getCpf() << endl;
+                // arquivo << "Matrícula: " << it->getMatricula() << endl;
+                // arquivo << "Data de ingresso: " << it->getIngressoEmpresa().dia << "/" << it->getIngressoEmpresa().mes << "/" << it->getIngressoEmpresa().ano << endl;
+                // arquivo << "Data de demissão: " << desligamento.dia << "/" << desligamento.mes << "/" << desligamento.ano << endl;
+                // arquivo << "******************************" << endl;
+                // arquivo << "Valor de rescisão: " << it->calcularRecisao(desligamento) << endl;
+                // arquivo << "******************************" << endl;
+                // arquivo << "Tempo de Trabalho: " << endl;
+                escreverArquivoRelatorioDemissional<Vendedor>(*it, arquivo, desligamento, "Vendedor");
                 vendedores.erase(it);
+
                 cout << "********* FUNCIONÁRIO DEMITIDO  *********" << endl;
                 arquivo.close();
                 return;
             }
         }
 
+        // Asgs
+        for (vector<Asg>::iterator it = asgs.begin(); it != asgs.end(); it++)
+        {
+            if (it->getMatricula() == matricula)
+            {
+                escreverArquivoRelatorioDemissional<Asg>(*it, arquivo, desligamento, "Asg");
+                asgs.erase(it);
 
+                cout << "********* FUNCIONÁRIO DEMITIDO  *********" << endl;
+                arquivo.close();
+                return;
+            }
+        }
+
+        // Gerente
+        for (vector<Gerente>::iterator it = gerentes.begin(); it != gerentes.end(); it++)
+        {
+            if (it->getMatricula() == matricula)
+            {
+                escreverArquivoRelatorioDemissional<Gerente>(*it, arquivo, desligamento, "Gerente");
+                gerentes.erase(it);
+
+                cout << "********* FUNCIONÁRIO DEMITIDO  *********" << endl;
+                arquivo.close();
+                return;
+            }
+        }
     }
     catch (exception &e)
     {
