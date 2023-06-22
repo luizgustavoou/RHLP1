@@ -37,7 +37,7 @@ public:
     void setCnpj(std::string cnpj);
     void setHoje(Data hoje);
 
-    void carregaFuncoes(); //Faltando
+    void carregaFuncoes(); // Faltando
     void carregarEmpresa();
     void carregarAsg();
     void carregarVendedor();
@@ -51,6 +51,10 @@ public:
     void calculaSalarioFuncionario(std::string matricula);
     void calculaTodoOsSalarios();
     void calcularRecisao(std::string matricula, Data desligamento);
+    void demitirFuncionario(std::string matricula, Data desligamento);
+
+    template <typename T>
+    T busca(std::string matricula);
 };
 
 #endif

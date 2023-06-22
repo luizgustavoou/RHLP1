@@ -170,6 +170,25 @@ void Empresa::carregaFuncoes()
 
                 this->calcularRecisao(matricula, desligamento);
             }
+            else if (linha == "demitirFuncionario()")
+            {
+                string matricula;
+                Data desligamento;
+
+                getline(arquivo, linha);
+                matricula = linha;
+
+                getline(arquivo, linha);
+                desligamento.ano = stoi(linha);
+
+                getline(arquivo, linha);
+                desligamento.mes = stoi(linha);
+
+                getline(arquivo, linha);
+                desligamento.dia = stoi(linha);
+
+                this->demitirFuncionario(matricula, desligamento);
+            }
         }
 
         arquivo.close();
@@ -534,6 +553,8 @@ void Empresa::imprimeAsgs()
 {
     cout << "********* LISTAR AGS*********" << endl;
 
+    vector<Asg> &asgs = this->getAsgs();
+
     for (auto ii : this->getAsgs())
     {
 
@@ -777,4 +798,59 @@ void Empresa::calcularRecisao(string matricula, Data desligamento)
 
     cout << "********* FIM CALCULA RECISÃO FUNCIONÁRIO*********" << endl
          << endl;
+}
+
+void Empresa::demitirFuncionario(string matricula, Data desligamento)
+{
+    cout << "********* DEMITINDO FUNCIONÁRIO...*********" << endl;
+
+    try
+    {
+
+        string nomeArquivo = "relatórioDemissional.txt";
+        fstream arquivo;
+        arquivo.open(caminhoArquivosEscrita + nomeArquivo, ios::out);
+        if (!arquivo.is_open())
+        {
+            string erroMensagem = "O arquivo " + nomeArquivo + " não foi lido.";
+            throw runtime_error(erroMensagem);
+        }
+
+        vector<Asg> &asgs = this->getAsgs();
+        vector<Vendedor> &vendedores = this->getVendedores();
+        vector<Gerente> &gerentes = this->getGerentes();
+
+        //Vendedores
+        for (vector<Vendedor>::iterator it = vendedores.begin(); it != vendedores.end(); it++)
+        {
+            if (it->getMatricula() == matricula)
+            {
+                arquivo << "##############################" << endl;
+                arquivo << "    Relatorio Demissional" << endl;
+                arquivo << "##############################" << endl;
+                arquivo << "Cargo: Vendedor" << endl;
+                arquivo << "Nome: " << it->getNome() << endl;
+                arquivo << "CPF: " << it->getCpf() << endl;
+                arquivo << "Matrícula: " << it->getMatricula() << endl;
+                arquivo << "Data de ingresso: " << it->getIngressoEmpresa().dia << "/" << it->getIngressoEmpresa().mes << "/" << it->getIngressoEmpresa().ano << endl;
+                arquivo << "Data de demissão: " << desligamento.dia << "/" << desligamento.mes << "/" << desligamento.ano << endl;
+                arquivo << "******************************" << endl;
+                arquivo << "Valor de rescisão: " << it->calcularRecisao(desligamento) << endl;
+                arquivo << "******************************" << endl;
+                arquivo << "Tempo de Trabalho: " << endl;
+                vendedores.erase(it);
+                cout << "********* FUNCIONÁRIO DEMITIDO  *********" << endl;
+                arquivo.close();
+                return;
+            }
+        }
+
+
+    }
+    catch (exception &e)
+    {
+        cout << "Erro: " << e.what() << endl;
+        cout << "********* DEMITIR FUNCIONARIO FALHOU *********" << endl
+             << endl;
+    }
 }
