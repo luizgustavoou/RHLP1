@@ -189,6 +189,10 @@ void Empresa::carregaFuncoes()
 
                 this->demitirFuncionario(matricula, desligamento);
             }
+            else if (linha == "contratarFuncionario()")
+            {
+                this->contratarFuncionario();
+            }
         }
 
         arquivo.close();
@@ -1130,6 +1134,7 @@ void Empresa::atualizarArquivoGerente()
 
 void Empresa::demitirFuncionario(string matricula, Data desligamento)
 {
+    return;
     cout << "********* DEMITINDO FUNCIONÁRIO...*********" << endl;
 
     try
@@ -1172,5 +1177,220 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento)
         cout << "Erro: " << e.what() << endl;
         cout << "********* DEMITIR FUNCIONARIO FALHOU *********" << endl
              << endl;
+    }
+}
+
+void Empresa::contratarFuncionario()
+{
+    try
+    {
+        string nomeArquivo = "novoFuncionario.txt";
+        fstream arquivo;
+        arquivo.open(caminhoArquivosLeitura + nomeArquivo, ios::in);
+        if (!arquivo.is_open())
+        {
+            string erroMensagem = "O arquivo " + nomeArquivo + " não foi lido.";
+            throw runtime_error(erroMensagem);
+        }
+
+        string linha1, linha2;
+        Endereco ende;
+        Data nascimento, ingresso;
+
+        vector<Asg> &asgs = this->getAsgs();
+        vector<Vendedor> &vendedores = this->getVendedores();
+        vector<Gerente> &gerentes = this->getGerentes();
+        while (getline(arquivo, linha1))
+        {
+            if (linha1 == "ASG" || linha1 == "Asg")
+            {
+                Asg asg;
+
+                getline(arquivo, linha2);
+                getline(arquivo, linha2);
+                asg.setNome(linha2);
+                getline(arquivo, linha2);
+                asg.setCpf(linha2);
+                getline(arquivo, linha2);
+                asg.setQtdFilhos(stoi(linha2));
+                getline(arquivo, linha2);
+                asg.setEstadoCivil(linha2);
+
+                getline(arquivo, linha2);
+                getline(arquivo, linha2);
+                ende.cidade = linha2;
+                getline(arquivo, linha2);
+                ende.cep = linha2;
+                getline(arquivo, linha2);
+                ende.bairro = linha2;
+                getline(arquivo, linha2);
+                ende.rua = linha2;
+                getline(arquivo, linha2);
+                ende.numero = stoi(linha2);
+                asg.setEnderecoPessoal(ende);
+
+                getline(arquivo, linha2);
+                getline(arquivo, linha2);
+                nascimento.ano = stoi(linha2);
+                getline(arquivo, linha2);
+                nascimento.mes = stoi(linha2);
+                getline(arquivo, linha2);
+                nascimento.dia = stoi(linha2);
+                asg.setDataNascimento(nascimento);
+
+                getline(arquivo, linha2);
+                getline(arquivo, linha2);
+                asg.setMatricula(linha2);
+                getline(arquivo, linha2);
+                asg.setSalario(stod(linha2));
+                getline(arquivo, linha2);
+                asg.setAdicionalInsalubridade(stod(linha2));
+                // getline(arquivo, linha2);
+                // Dias de faltas
+                // asg.set
+
+                getline(arquivo, linha2);
+                getline(arquivo, linha2);
+                ingresso.ano = stoi(linha2);
+                getline(arquivo, linha2);
+                ingresso.mes = stoi(linha2);
+                getline(arquivo, linha2);
+                ingresso.dia = stoi(linha2);
+                asg.setIngressoEmpresa(ingresso);
+
+                asgs.push_back(asg);
+                cout << "Asg cadastrada com sucesso." << endl;
+
+                atualizarArquivoAsg();
+            }
+            else if (linha1 == "Vendedor" || linha1 == "VENDEDOR")
+            {
+                Vendedor vendedor;
+
+                getline(arquivo, linha2);
+                getline(arquivo, linha2);
+                vendedor.setNome(linha2);
+                getline(arquivo, linha2);
+                vendedor.setCpf(linha2);
+                getline(arquivo, linha2);
+                vendedor.setQtdFilhos(stoi(linha2));
+                getline(arquivo, linha2);
+                vendedor.setEstadoCivil(linha2);
+
+                getline(arquivo, linha2);
+                getline(arquivo, linha2);
+                ende.cidade = linha2;
+                getline(arquivo, linha2);
+                ende.cep = linha2;
+                getline(arquivo, linha2);
+                ende.bairro = linha2;
+                getline(arquivo, linha2);
+                ende.rua = linha2;
+                getline(arquivo, linha2);
+                ende.numero = stoi(linha2);
+                vendedor.setEnderecoPessoal(ende);
+
+                getline(arquivo, linha2);
+                getline(arquivo, linha2);
+                nascimento.ano = stoi(linha2);
+                getline(arquivo, linha2);
+                nascimento.mes = stoi(linha2);
+                getline(arquivo, linha2);
+                nascimento.dia = stoi(linha2);
+                vendedor.setDataNascimento(nascimento);
+
+                getline(arquivo, linha2);
+                getline(arquivo, linha2);
+                vendedor.setMatricula(linha2);
+                getline(arquivo, linha2);
+                vendedor.setSalario(stod(linha2));
+                getline(arquivo, linha2);
+                vendedor.setTipoVendedor(linha2[0]);
+                // getline(arquivo, linha2);
+                // Dias de faltas
+                // vendedor.set
+
+                getline(arquivo, linha2);
+                getline(arquivo, linha2);
+                ingresso.ano = stoi(linha2);
+                getline(arquivo, linha2);
+                ingresso.mes = stoi(linha2);
+                getline(arquivo, linha2);
+                ingresso.dia = stoi(linha2);
+                vendedor.setIngressoEmpresa(ingresso);
+
+                vendedores.push_back(vendedor);
+                cout << "Vendedor cadastrado com sucesso." << endl;
+                atualizarArquivoVendedor();
+            }
+            else if (linha1 == "Gerente" || linha1 == "GERENTE")
+            {
+                Gerente gerente;
+
+                getline(arquivo, linha2);
+                getline(arquivo, linha2);
+                gerente.setNome(linha2);
+                getline(arquivo, linha2);
+                gerente.setCpf(linha2);
+                getline(arquivo, linha2);
+                gerente.setQtdFilhos(stoi(linha2));
+                getline(arquivo, linha2);
+                gerente.setEstadoCivil(linha2);
+
+                getline(arquivo, linha2);
+                getline(arquivo, linha2);
+                ende.cidade = linha2;
+                getline(arquivo, linha2);
+                ende.cep = linha2;
+                getline(arquivo, linha2);
+                ende.bairro = linha2;
+                getline(arquivo, linha2);
+                ende.rua = linha2;
+                getline(arquivo, linha2);
+                ende.numero = stoi(linha2);
+                gerente.setEnderecoPessoal(ende);
+
+                getline(arquivo, linha2);
+                getline(arquivo, linha2);
+                nascimento.ano = stoi(linha2);
+                getline(arquivo, linha2);
+                nascimento.mes = stoi(linha2);
+                getline(arquivo, linha2);
+                nascimento.dia = stoi(linha2);
+                gerente.setDataNascimento(nascimento);
+
+                getline(arquivo, linha2);
+                getline(arquivo, linha2);
+                gerente.setMatricula(linha2);
+                getline(arquivo, linha2);
+                gerente.setSalario(stod(linha2));
+                getline(arquivo, linha2);
+                gerente.setParticipacaoLucros(stod(linha2));
+                // getline(arquivo, linha2);
+                // Dias de faltas
+                // gerente.set
+
+                getline(arquivo, linha2);
+                getline(arquivo, linha2);
+                ingresso.ano = stoi(linha2);
+                getline(arquivo, linha2);
+                ingresso.mes = stoi(linha2);
+                getline(arquivo, linha2);
+                ingresso.dia = stoi(linha2);
+                gerente.setIngressoEmpresa(ingresso);
+
+                gerentes.push_back(gerente);
+                cout << "Gerente cadastrado com sucesso." << endl;
+                atualizarArquivoGerente();
+            }
+        }
+
+        arquivo.close();
+    }
+    catch (exception &e)
+    {
+        cout << "Erro: " << e.what() << endl;
+        cout << "********* Não foi possível contratar o funcionário *********" << endl;
+        cout << endl;
     }
 }

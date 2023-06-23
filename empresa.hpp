@@ -66,6 +66,7 @@ public:
     void atualizarArquivoAsg();
     void atualizarArquivoVendedor();
     void atualizarArquivoGerente();
+    void contratarFuncionario();
 };
 
 #endif

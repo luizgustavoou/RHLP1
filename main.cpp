@@ -20,19 +20,6 @@ int main(int argc, char *argv[])
     Empresa *atacadoDosCalcado = new Empresa("xxxxxxxx", "yyyyyyyy", 111111, DataHoje);
 
     atacadoDosCalcado->carregaFuncoes();
-    // atacadoDosCalcado->carregarEmpresa();
-    // atacadoDosCalcado->carregarAsg();
-    // atacadoDosCalcado->carregarVendedor();
-    // atacadoDosCalcado->carregarGerente();
-    // atacadoDosCalcado->carregaDono();
-    // atacadoDosCalcado->imprimeAsgs();
-    // atacadoDosCalcado->imprimeVendedores();
-    // atacadoDosCalcado->imprimeGerentes();
-    // atacadoDosCalcado->imprimeDono();
-    // atacadoDosCalcado->buscaFuncionario("72.412-3");
-    // atacadoDosCalcado->calculaSalarioFuncionario("72.412-3");
-    // atacadoDosCalcado->calculaTodoOsSalarios();
-    // atacadoDosCalcado->calcularRecisao("72.412-3", DataHoje);
 
     return 0;
 }
