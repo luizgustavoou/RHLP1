@@ -255,6 +255,7 @@ void Empresa::carregarEmpresa()
 
 void Empresa::carregarAsg()
 {
+    // TODO: Implementar a linha de diasDeFalta
 
     string nomeArquivo = "asg.txt";
 
@@ -335,6 +336,7 @@ void Empresa::carregarAsg()
 
 void Empresa::carregarVendedor()
 {
+    // TODO: Implementar a linha de diasDeFalta
 
     string nomeArquivo = "vendedor.txt";
 
@@ -415,6 +417,7 @@ void Empresa::carregarVendedor()
 
 void Empresa::carregarGerente()
 {
+    // TODO: Implementar a linha de diasDeFalta
 
     string nomeArquivo = "gerente.txt";
 
@@ -1182,6 +1185,7 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento)
 
 void Empresa::contratarFuncionario()
 {
+    // TODO: Implementar a linha de diasDeFalta
     try
     {
         string nomeArquivo = "novoFuncionario.txt";
