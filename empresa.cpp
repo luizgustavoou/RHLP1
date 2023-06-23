@@ -820,7 +820,23 @@ void Empresa::escreverArquivoRelatorioDemissional(T funcionario, fstream &arquiv
     arquivo << "******************************" << endl;
     arquivo << "Valor de rescisão: " << funcionario.calcularRecisao(desligamento) << endl;
     arquivo << "******************************" << endl;
-    arquivo << "Tempo de Trabalho: " << endl;
+
+    float anoIngresso = calcularAnoData(funcionario.getIngressoEmpresa());
+    float anoDesligamento = calcularAnoData(desligamento);
+    float anoTrabalhado = anoDesligamento - anoIngresso;
+
+    // Convertendo anos em inteiros
+    int anos = static_cast<int>(anoTrabalhado);
+
+    // Calculando meses e dias
+    float meses_em_float = (anoTrabalhado - anos) * 12;
+    int meses = static_cast<int>(meses_em_float);
+
+    float dias_em_float = (meses_em_float - meses) * 30; // Estimando 30 dias por mês
+    int dias = static_cast<int>(dias_em_float);
+
+    arquivo << "Tempo de Trabalho: " << anos << " anos, " << meses << " meses, "
+            << "e " << dias << " dias" << endl;
 }
 
 template <typename T>
