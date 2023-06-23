@@ -1,13 +1,13 @@
 ##############################
     Relatorio Demissional
 ##############################
-Cargo: Asg
-Nome: Pedro de Araujo
-CPF: 658.897.745-45
-Matrícula: 72.385-9
-Data de ingresso: 30/9/2017
+Cargo: Gerente
+Nome: Gustavo Luiz de Souza
+CPF: 320.078.587-15
+Matrícula: 72.412-2
+Data de ingresso: 30/6/2015
 Data de demissão: 4/6/2023
 ******************************
-Valor de rescisão: 7496.06
+Valor de rescisão: 11893.2
 ******************************
 Tempo de Trabalho: 

@@ -60,8 +60,12 @@ public:
     template <typename T>
     bool buscaFuncionarioDemite(std::vector<T> &funcionarios, std::string matricula, std::fstream &arquivo, Data desligamento, std::string cargo);
 
-    template <typename T>
-    void atualizarArquivo(std::string nomeArquivo, std::vector<T> &funcionarios, std::string cargo);
+    // template <typename T>
+    // void atualizarArquivo(std::string nomeArquivo, std::vector<T> &funcionarios, std::string cargo);
+
+    void atualizarArquivoAsg();
+    void atualizarArquivoVendedor();
+    void atualizarArquivoGerente();
 };
 
 #endif

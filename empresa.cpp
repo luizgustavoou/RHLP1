@@ -846,11 +846,86 @@ bool Empresa::buscaFuncionarioDemite(vector<T> &funcionarios, std::string matric
 
 // A PARTIR DAKI COMEÇA AS FUNCOES DO 3 PROJETO
 
-template <typename T>
-void Empresa::atualizarArquivo(string nomeArquivo, vector<T> &funcionarios, string cargo)
+// template <typename T>
+// void Empresa::atualizarArquivo(string nomeArquivo, vector<T> &funcionarios, string cargo)
+// {
+//     try
+//     {
+
+//         fstream arquivo;
+//         arquivo.open(caminhoArquivosLeitura + nomeArquivo, ios::out);
+//         if (!arquivo.is_open())
+//         {
+//             string erroMensagem = "O arquivo " + nomeArquivo + " não foi lido.";
+//             throw runtime_error(erroMensagem);
+//         }
+
+//         int codigoFuncionario = 0;
+
+//         for (auto ii : funcionarios)
+//         {
+//             arquivo << "#########################################################" << endl;
+//             arquivo << cargo << " Nº: " << codigoFuncionario << endl;
+//             arquivo << "##### DADOS PESSOAIS #####" << endl;
+
+//             arquivo << ii.getNome() << endl;
+//             arquivo << ii.getCpf() << endl;
+//             arquivo << ii.getQtdFilhos() << endl;
+//             arquivo << ii.getEstadoCivil() << endl;
+
+//             arquivo << "***** Endereço (cidade, cep, bairro, rua e numero) ****" << endl;
+
+//             arquivo << ii.getEnderecoPessoal().cidade << endl;
+//             arquivo << ii.getEnderecoPessoal().cep << endl;
+//             arquivo << ii.getEnderecoPessoal().bairro << endl;
+//             arquivo << ii.getEnderecoPessoal().rua << endl;
+//             arquivo << ii.getEnderecoPessoal().numero << endl;
+
+//             arquivo << "***** Data de nascimento (ano, mes, dia) ****" << endl;
+
+//             arquivo << ii.getDataNascimento().ano << endl;
+//             arquivo << ii.getDataNascimento().mes << endl;
+//             arquivo << ii.getDataNascimento().dia << endl;
+
+//             arquivo << "##### DADOS FUNCIONAIS #####" << endl;
+//             arquivo << ii.getMatricula() << endl;
+//             arquivo << ii.getSalario() << endl;
+//             if (cargo == "ASG")
+//             {
+//                 arquivo << ii.getAdicionalInsalubridade() << endl;
+//             }
+//             else if (cargo == "VENDEDOR")
+//             {
+//                 arquivo << ii.getTipoVendedor() << endl;
+//             }
+//             else if (cargo == "GERENTE")
+//             {
+//                 arquivo << ii.getParticipacaoLucros() << endl;
+//             }
+
+//             arquivo << "***** Data de ingresso (ano, mes, dia) ****" << endl;
+
+//             arquivo << ii.getIngressoEmpresa().ano << endl;
+//             arquivo << ii.getIngressoEmpresa().mes << endl;
+//             arquivo << ii.getIngressoEmpresa().dia << endl;
+
+//             codigoFuncionario++;
+//         }
+
+//         arquivo.close();
+//     }
+//     catch (exception &e)
+//     {
+//         cout << "Erro: " << e.what() << endl;
+//     }
+// }
+
+void Empresa::atualizarArquivoAsg()
 {
     try
     {
+
+        string nomeArquivo = "asg.txt";
 
         fstream arquivo;
         arquivo.open(caminhoArquivosLeitura + nomeArquivo, ios::out);
@@ -862,10 +937,10 @@ void Empresa::atualizarArquivo(string nomeArquivo, vector<T> &funcionarios, stri
 
         int codigoFuncionario = 0;
 
-        for (auto ii : funcionarios)
+        for (auto ii : this->getAsgs())
         {
             arquivo << "#########################################################" << endl;
-            arquivo << cargo << " Nº: " << codigoFuncionario << endl;
+            arquivo << "ASG Nº: " << codigoFuncionario << endl;
             arquivo << "##### DADOS PESSOAIS #####" << endl;
 
             arquivo << ii.getNome() << endl;
@@ -890,7 +965,135 @@ void Empresa::atualizarArquivo(string nomeArquivo, vector<T> &funcionarios, stri
             arquivo << "##### DADOS FUNCIONAIS #####" << endl;
             arquivo << ii.getMatricula() << endl;
             arquivo << ii.getSalario() << endl;
-            arquivo << ii.getAdicionalInsalubridade() << endl; // vai diferir aki
+            arquivo << ii.getAdicionalInsalubridade() << endl;
+
+            arquivo << "***** Data de ingresso (ano, mes, dia) ****" << endl;
+
+            arquivo << ii.getIngressoEmpresa().ano << endl;
+            arquivo << ii.getIngressoEmpresa().mes << endl;
+            arquivo << ii.getIngressoEmpresa().dia << endl;
+
+            codigoFuncionario++;
+        }
+
+        arquivo.close();
+    }
+    catch (exception &e)
+    {
+        cout << "Erro: " << e.what() << endl;
+    }
+}
+
+void Empresa::atualizarArquivoVendedor()
+{
+    try
+    {
+
+        string nomeArquivo = "vendedor.txt";
+
+        fstream arquivo;
+        arquivo.open(caminhoArquivosLeitura + nomeArquivo, ios::out);
+        if (!arquivo.is_open())
+        {
+            string erroMensagem = "O arquivo " + nomeArquivo + " não foi lido.";
+            throw runtime_error(erroMensagem);
+        }
+
+        int codigoFuncionario = 0;
+
+        for (auto ii : this->getVendedores())
+        {
+            arquivo << "#########################################################" << endl;
+            arquivo << "VENDEDOR Nº: " << codigoFuncionario << endl;
+            arquivo << "##### DADOS PESSOAIS #####" << endl;
+
+            arquivo << ii.getNome() << endl;
+            arquivo << ii.getCpf() << endl;
+            arquivo << ii.getQtdFilhos() << endl;
+            arquivo << ii.getEstadoCivil() << endl;
+
+            arquivo << "***** Endereço (cidade, cep, bairro, rua e numero) ****" << endl;
+
+            arquivo << ii.getEnderecoPessoal().cidade << endl;
+            arquivo << ii.getEnderecoPessoal().cep << endl;
+            arquivo << ii.getEnderecoPessoal().bairro << endl;
+            arquivo << ii.getEnderecoPessoal().rua << endl;
+            arquivo << ii.getEnderecoPessoal().numero << endl;
+
+            arquivo << "***** Data de nascimento (ano, mes, dia) ****" << endl;
+
+            arquivo << ii.getDataNascimento().ano << endl;
+            arquivo << ii.getDataNascimento().mes << endl;
+            arquivo << ii.getDataNascimento().dia << endl;
+
+            arquivo << "##### DADOS FUNCIONAIS #####" << endl;
+            arquivo << ii.getMatricula() << endl;
+            arquivo << ii.getSalario() << endl;
+            arquivo << ii.getTipoVendedor() << endl;
+
+            arquivo << "***** Data de ingresso (ano, mes, dia) ****" << endl;
+
+            arquivo << ii.getIngressoEmpresa().ano << endl;
+            arquivo << ii.getIngressoEmpresa().mes << endl;
+            arquivo << ii.getIngressoEmpresa().dia << endl;
+
+            codigoFuncionario++;
+        }
+
+        arquivo.close();
+    }
+    catch (exception &e)
+    {
+        cout << "Erro: " << e.what() << endl;
+    }
+}
+
+void Empresa::atualizarArquivoGerente()
+{
+    try
+    {
+
+        string nomeArquivo = "gerente.txt";
+
+        fstream arquivo;
+        arquivo.open(caminhoArquivosLeitura + nomeArquivo, ios::out);
+        if (!arquivo.is_open())
+        {
+            string erroMensagem = "O arquivo " + nomeArquivo + " não foi lido.";
+            throw runtime_error(erroMensagem);
+        }
+
+        int codigoFuncionario = 0;
+
+        for (auto ii : this->getGerentes())
+        {
+            arquivo << "#########################################################" << endl;
+            arquivo << "GERENTE Nº: " << codigoFuncionario << endl;
+            arquivo << "##### DADOS PESSOAIS #####" << endl;
+
+            arquivo << ii.getNome() << endl;
+            arquivo << ii.getCpf() << endl;
+            arquivo << ii.getQtdFilhos() << endl;
+            arquivo << ii.getEstadoCivil() << endl;
+
+            arquivo << "***** Endereço (cidade, cep, bairro, rua e numero) ****" << endl;
+
+            arquivo << ii.getEnderecoPessoal().cidade << endl;
+            arquivo << ii.getEnderecoPessoal().cep << endl;
+            arquivo << ii.getEnderecoPessoal().bairro << endl;
+            arquivo << ii.getEnderecoPessoal().rua << endl;
+            arquivo << ii.getEnderecoPessoal().numero << endl;
+
+            arquivo << "***** Data de nascimento (ano, mes, dia) ****" << endl;
+
+            arquivo << ii.getDataNascimento().ano << endl;
+            arquivo << ii.getDataNascimento().mes << endl;
+            arquivo << ii.getDataNascimento().dia << endl;
+
+            arquivo << "##### DADOS FUNCIONAIS #####" << endl;
+            arquivo << ii.getMatricula() << endl;
+            arquivo << ii.getSalario() << endl;
+            arquivo << ii.getParticipacaoLucros() << endl;
 
             arquivo << "***** Data de ingresso (ano, mes, dia) ****" << endl;
 
@@ -931,13 +1134,19 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento)
 
         if (this->buscaFuncionarioDemite<Asg>(asgs, matricula, arquivo, desligamento, "Asg"))
         {
-            atualizarArquivo<Asg>("asg.txt", asgs, "ASG");
+            atualizarArquivoAsg();
             return;
         }
         if (this->buscaFuncionarioDemite<Vendedor>(vendedores, matricula, arquivo, desligamento, "Vendedor"))
+        {
+            atualizarArquivoVendedor();
             return;
+        }
         if (this->buscaFuncionarioDemite<Gerente>(gerentes, matricula, arquivo, desligamento, "Gerente"))
+        {
+            atualizarArquivoGerente();
             return;
+        }
 
         throw runtime_error("Funcionário não encontrado!");
     }
