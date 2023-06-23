@@ -15,7 +15,7 @@ Cargo: Vendedor
 Total Vendedor: 7500.00
 
 Cargo: Gerente
-72.412-3 - Gustavo Luiz de Souza - R$ 1500.00
+72.412-2 - Gustavo Luiz de Souza - R$ 1500.00
 Total Gerente: 1500.00
 
 CUSTO TOTAL DE RH: R$ 12960.00

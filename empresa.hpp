@@ -7,6 +7,7 @@
 #include "asg.hpp"
 #include "vendedor.hpp"
 #include "gerente.hpp"
+#include <vector>
 
 class Empresa
 {
@@ -37,7 +38,7 @@ public:
     void setCnpj(std::string cnpj);
     void setHoje(Data hoje);
 
-    void carregaFuncoes(); //Faltando
+    void carregaFuncoes(); // Faltando
     void carregarEmpresa();
     void carregarAsg();
     void carregarVendedor();
@@ -51,6 +52,20 @@ public:
     void calculaSalarioFuncionario(std::string matricula);
     void calculaTodoOsSalarios();
     void calcularRecisao(std::string matricula, Data desligamento);
+    void demitirFuncionario(std::string matricula, Data desligamento);
+
+    template <typename T>
+    void escreverArquivoRelatorioDemissional(T funcionario, std::fstream &arquivo, Data desligamento, std::string cargo);
+
+    template <typename T>
+    bool buscaFuncionarioDemite(std::vector<T> &funcionarios, std::string matricula, std::fstream &arquivo, Data desligamento, std::string cargo);
+
+    // template <typename T>
+    // void atualizarArquivo(std::string nomeArquivo, std::vector<T> &funcionarios, std::string cargo);
+
+    void atualizarArquivoAsg();
+    void atualizarArquivoVendedor();
+    void atualizarArquivoGerente();
 };
 
 #endif

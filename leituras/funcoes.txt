@@ -17,3 +17,8 @@ calcularRecisao()
 2023
 06
 04
+demitirFuncionario()
+72.412-2
+2023
+06
+04
