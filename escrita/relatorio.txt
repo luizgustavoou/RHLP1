@@ -2,10 +2,15 @@
 
 Cargo: ASG
 72.385-9 - Pedro de Araujo - R$ 1320
-72.102-0 - Jorge Linhares - R$ 1320
 72.280-8 - Antonio Augusto de Souza Filho - R$ 1320
 72.385-9 - NOVO FUNCIONÁRIO - R$ 1320
-Total ASG: 5280.00
+72.385-9 - NOVO FUNCIONÁRIO - R$ 1320
+72.385-9 - NOVO FUNCIONÁRIO - R$ 1320
+72.385-9 - NOVO FUNCIONÁRIO - R$ 1320
+72.385-9 - NOVO FUNCIONÁRIO - R$ 1320
+72.385-9 - NOVO FUNCIONÁRIO - R$ 1320
+72.102-0 - NOVO FUNCIONÁRIO - R$ 1320
+Total ASG: 11880.00
 
 Cargo: Vendedor
 72.412-3 - Luiz de Souza - R$ 1500.00
@@ -19,4 +24,14 @@ Cargo: Gerente
 72.412-2 - Gustavo Luiz de Souza - R$ 1500.00
 Total Gerente: 1500.00
 
-CUSTO TOTAL DE RH: R$ 14280.00
+CUSTO TOTAL DE RH: R$ 20880.00
+
+FATURAMENTO MENSAL: 156290.00
+
+Custo ASG(%): 56.90
+Custo Vendedor(%): 35.92
+Custo Gerente(%): 7.18
+
+LUCRO DA EMPRESA: 135410.00
+
+SITUAÇÃO: Lucro

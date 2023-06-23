@@ -720,6 +720,8 @@ void Empresa::calculaTodoOsSalarios()
         float totalSalarioGerentes = 0;
         float totalSalarios = 0;
 
+        float lucro, custoAsg, custoVendedor, custoGerente;
+
         arquivo << "######### Relatório Financeiro ########" << endl
                 << endl;
         arquivo << "Cargo: ASG" << endl;
@@ -758,6 +760,27 @@ void Empresa::calculaTodoOsSalarios()
         totalSalarios = totalSalarioAsgs + totalSalarioVendedores + totalSalarioGerentes;
 
         arquivo << "CUSTO TOTAL DE RH: R$ " << fixed << setprecision(2) << totalSalarios << endl;
+        arquivo << endl;
+
+        lucro = (getFaturamentoMensal() - totalSalarios);
+        arquivo << "FATURAMENTO MENSAL: " << getFaturamentoMensal() << endl;
+        arquivo << endl;
+
+        custoAsg = totalSalarioAsgs/totalSalarios;
+        custoVendedor = totalSalarioVendedores/totalSalarios;
+        custoGerente = totalSalarioGerentes/totalSalarios;
+        
+        arquivo << "Custo ASG(%): " << custoAsg*100 << endl;
+        arquivo << "Custo Vendedor(%): " << custoVendedor*100 << endl;
+        arquivo << "Custo Gerente(%): " << custoGerente*100 << endl;
+        arquivo << endl;
+
+        arquivo << "LUCRO DA EMPRESA: " << lucro << endl;
+        arquivo << endl;
+
+        if(lucro > 0) arquivo << "SITUAÇÃO: Lucro" << endl;
+
+        else if(lucro <= 0) arquivo << "SITUAÇÃO: Prejuizo" << endl;
 
         arquivo.close();
 
