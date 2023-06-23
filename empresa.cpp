@@ -1137,7 +1137,6 @@ void Empresa::atualizarArquivoGerente()
 
 void Empresa::demitirFuncionario(string matricula, Data desligamento)
 {
-    return;
     cout << "********* DEMITINDO FUNCIONÁRIO...*********" << endl;
 
     try
