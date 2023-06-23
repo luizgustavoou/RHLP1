@@ -9,7 +9,7 @@ Asg::Asg()
     // cout << "Asg criado!" << endl;
 }
 
-Asg::Asg(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal, string estadoCivil, int qtdFilhos, float salario, string matricula, Data ingressoEmpresa, float adicionalInsalubridade)
+Asg::Asg(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal, string estadoCivil, int qtdFilhos, float salario, string matricula, Data ingressoEmpresa, float adicionalInsalubridade, int diasFalta)
 {
     this->setNome(nome);
     this->setCpf(cpf);
@@ -21,6 +21,7 @@ Asg::Asg(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal,
     this->setMatricula(matricula);
     this->setIngressoEmpresa(ingressoEmpresa);
     this->setAdicionalInsalubridade(adicionalInsalubridade);
+    this->setDiasFalta(diasFalta);
 }
 
 float Asg::getAdicionalInsalubridade()
@@ -32,12 +33,12 @@ void Asg::setAdicionalInsalubridade(float adicionalInsalubridade)
     this->_adicionalInsalubridade = adicionalInsalubridade;
 }
 
-float Asg::calcularSalario(int diasFaltas)
+float Asg::calcularSalario()
 {
     // TODO: Criar uma const da qtde de dias do mês: 30
     float salario = this->getSalario();
     float salarioPorFalta = salario / 30;
-    float descontaFalta = salarioPorFalta * diasFaltas;
+    float descontaFalta = salarioPorFalta * this->getDiasFalta();
     float adicionalInsalubridade = this->getAdicionalInsalubridade();
     float qtdFilhos = this->getQtdFilhos();
 

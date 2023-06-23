@@ -9,7 +9,7 @@ Gerente::Gerente()
     // cout << "Gerente criado!" << endl;
 }
 
-Gerente::Gerente(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal, string estadoCivil, int qtdFilhos, float salario, string matricula, Data ingressoEmpresa, float participacaoLucros)
+Gerente::Gerente(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal, string estadoCivil, int qtdFilhos, float salario, string matricula, Data ingressoEmpresa, float participacaoLucros, int diasFalta)
 {
     this->setNome(nome);
     this->setCpf(cpf);
@@ -21,6 +21,8 @@ Gerente::Gerente(string nome, string cpf, Data dataNascimento, Endereco endereco
     this->setMatricula(matricula);
     this->setIngressoEmpresa(ingressoEmpresa);
     this->setParticipacaoLucros(participacaoLucros);
+    this->setDiasFalta(diasFalta);
+
 }
 
 float Gerente::getParticipacaoLucros()
@@ -32,12 +34,12 @@ void Gerente::setParticipacaoLucros(float participacaoLucros)
     this->_participacaoLucros = participacaoLucros;
 }
 
-float Gerente::calcularSalario(int diasFaltas)
+float Gerente::calcularSalario()
 {
     // TODO: Criar uma const da qtde de dias do mês: 30
     float salario = this->getSalario();
     float salarioPorFalta = salario / 30;
-    float descontaFalta = salarioPorFalta * diasFaltas;
+    float descontaFalta = salarioPorFalta * this->getDiasFalta();
     float participacaoLucros = this->getParticipacaoLucros();
     float qtdFilhos = this->getQtdFilhos();
 

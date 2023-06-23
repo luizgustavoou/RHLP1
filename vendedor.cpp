@@ -9,7 +9,7 @@ Vendedor::Vendedor()
     // cout << "Vendedor criado!" << endl;
 }
 
-Vendedor::Vendedor(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal, string estadoCivil, int qtdFilhos, float salario, string matricula, Data ingressoEmpresa, char tipoVendedor)
+Vendedor::Vendedor(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal, string estadoCivil, int qtdFilhos, float salario, string matricula, Data ingressoEmpresa, char tipoVendedor, int diasFalta)
 {
     this->setNome(nome);
     this->setCpf(cpf);
@@ -21,6 +21,8 @@ Vendedor::Vendedor(string nome, string cpf, Data dataNascimento, Endereco endere
     this->setMatricula(matricula);
     this->setIngressoEmpresa(ingressoEmpresa);
     this->setTipoVendedor(tipoVendedor);
+    this->setDiasFalta(diasFalta);
+
 }
 
 float Vendedor::getGratificacao()
@@ -50,12 +52,12 @@ void Vendedor::setTipoVendedor(char tipoVendedor)
     this->_tipoVendedor = tipoVendedor;
 }
 
-float Vendedor::calcularSalario(int diasFaltas)
+float Vendedor::calcularSalario()
 {
     // TODO: Criar uma const da qtde de dias do mês: 30
     float salario = this->getSalario();
     float salarioPorFalta = salario / 30;
-    float descontaFalta = salarioPorFalta * diasFaltas;
+    float descontaFalta = salarioPorFalta * this->getDiasFalta();
     float qtdFilhos = this->getQtdFilhos();
     float gratificacao = this->getGratificacao();
 

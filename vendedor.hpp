@@ -11,12 +11,12 @@ class Vendedor : public Pessoa, public Funcionario
 
 public:
     Vendedor();
-    Vendedor(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal, std::string estadoCivil, int qtdFilhos, float salario, std::string matricula, Data ingressoEmpresa, char tipoVendedor);
+    Vendedor(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal, std::string estadoCivil, int qtdFilhos, float salario, std::string matricula, Data ingressoEmpresa, char tipoVendedor, int diasFalta);
 
     char getTipoVendedor();
     void setTipoVendedor(char tipoVendedor);
 
-    float calcularSalario(int diasFaltas);
+    float calcularSalario();
     float calcularRecisao(Data desligamento);
 
     float getGratificacao();

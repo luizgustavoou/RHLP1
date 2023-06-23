@@ -11,12 +11,12 @@ class Asg : public Pessoa, public Funcionario
 
 public:
     Asg();
-    Asg(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal, std::string estadoCivil, int qtdFilhos, float salario, std::string matricula, Data ingressoEmpresa, float adicionalInsalubridade);
+    Asg(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal, std::string estadoCivil, int qtdFilhos, float salario, std::string matricula, Data ingressoEmpresa, float adicionalInsalubridade, int diasFalta);
 
     float getAdicionalInsalubridade();
     void setAdicionalInsalubridade(float adicionalInsalubridade);
 
-    float calcularSalario(int diasFaltas);
+    float calcularSalario();
     float calcularRecisao(Data desligamento);
 
     void imprimirAtributosAsg();

@@ -18,6 +18,7 @@ Bela Morada
 72.385-9
 1320
 0.05
+2
 ***** Data de ingresso (ano, mes, dia) ****
 2017
 9

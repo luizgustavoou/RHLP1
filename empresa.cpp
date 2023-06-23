@@ -282,7 +282,7 @@ void Empresa::carregarAsg()
 
         arquivo.close();
 
-        for (int ii = 3; ii < vetor.size(); ii += 21)
+        for (int ii = 3; ii < vetor.size(); ii += 22)
         {
 
             Asg asg1;
@@ -312,12 +312,13 @@ void Empresa::carregarAsg()
             asg1.setMatricula(vetor[ii + 12]);
             asg1.setSalario(stof(vetor[ii + 13]));
             asg1.setAdicionalInsalubridade(stof(vetor[ii + 14]));
+            asg1.setDiasFalta(stoi(vetor[ii + 15]));
             ii++;
 
             Data dataIngressoAsg;
-            dataIngressoAsg.ano = stoi(vetor[ii + 15]);
-            dataIngressoAsg.mes = stoi(vetor[ii + 16]);
-            dataIngressoAsg.dia = stoi(vetor[ii + 17]);
+            dataIngressoAsg.ano = stoi(vetor[ii + 16]);
+            dataIngressoAsg.mes = stoi(vetor[ii + 17]);
+            dataIngressoAsg.dia = stoi(vetor[ii + 18]);
             asg1.setIngressoEmpresa(dataIngressoAsg);
 
             asgs.push_back(asg1);
@@ -363,7 +364,7 @@ void Empresa::carregarVendedor()
 
         arquivo.close();
 
-        for (int ii = 3; ii < vetor.size(); ii += 21)
+        for (int ii = 3; ii < vetor.size(); ii += 22)
         {
 
             Vendedor vendedor1;
@@ -393,12 +394,13 @@ void Empresa::carregarVendedor()
             vendedor1.setMatricula(vetor[ii + 12]);
             vendedor1.setSalario(stof(vetor[ii + 13]));
             vendedor1.setTipoVendedor(vetor[ii + 14][0]);
+            vendedor1.setDiasFalta(stoi(vetor[ii + 15]));
             ii++;
 
             Data dataIngressoAsg;
-            dataIngressoAsg.ano = stoi(vetor[ii + 15]);
-            dataIngressoAsg.mes = stoi(vetor[ii + 16]);
-            dataIngressoAsg.dia = stoi(vetor[ii + 17]);
+            dataIngressoAsg.ano = stoi(vetor[ii + 16]);
+            dataIngressoAsg.mes = stoi(vetor[ii + 17]);
+            dataIngressoAsg.dia = stoi(vetor[ii + 18]);
             vendedor1.setIngressoEmpresa(dataIngressoAsg);
 
             vendedores.push_back(vendedor1);
@@ -444,7 +446,7 @@ void Empresa::carregarGerente()
 
         arquivo.close();
 
-        for (int ii = 3; ii < vetor.size(); ii += 21)
+        for (int ii = 3; ii < vetor.size(); ii += 22)
         {
 
             Gerente gerente1;
@@ -474,20 +476,17 @@ void Empresa::carregarGerente()
             gerente1.setMatricula(vetor[ii + 12]);
             gerente1.setSalario(stof(vetor[ii + 13]));
             gerente1.setParticipacaoLucros(stof(vetor[ii + 14]));
+            gerente1.setDiasFalta(stoi(vetor[ii + 15]));
+
             ii++;
 
             Data dataIngressoAsg;
-            dataIngressoAsg.ano = stoi(vetor[ii + 15]);
-            dataIngressoAsg.mes = stoi(vetor[ii + 16]);
-            dataIngressoAsg.dia = stoi(vetor[ii + 17]);
+            dataIngressoAsg.ano = stoi(vetor[ii + 16]);
+            dataIngressoAsg.mes = stoi(vetor[ii + 17]);
+            dataIngressoAsg.dia = stoi(vetor[ii + 18]);
             gerente1.setIngressoEmpresa(dataIngressoAsg);
 
             gerentes.push_back(gerente1);
-        }
-
-        for (auto ii : this->getGerentes())
-        {
-            cout << ii.getNome() << endl;
         }
 
         cout << "********* CARREGAR GERENTES CONCLUÍDO*********" << endl
@@ -669,7 +668,7 @@ void Empresa::calculaSalarioFuncionario(string matricula)
     {
         if (ii.getMatricula() == matricula)
         {
-            cout << ii.calcularSalario(0) << endl;
+            cout << ii.calcularSalario() << endl;
             existe = true;
         }
     }
@@ -678,7 +677,7 @@ void Empresa::calculaSalarioFuncionario(string matricula)
     {
         if (ii.getMatricula() == matricula)
         {
-            cout << ii.calcularSalario(0) << endl;
+            cout << ii.calcularSalario() << endl;
             existe = true;
         }
     }
@@ -687,7 +686,7 @@ void Empresa::calculaSalarioFuncionario(string matricula)
     {
         if (ii.getMatricula() == matricula)
         {
-            cout << ii.calcularSalario(0) << endl;
+            cout << ii.calcularSalario() << endl;
             existe = true;
         }
     }
@@ -766,21 +765,23 @@ void Empresa::calculaTodoOsSalarios()
         arquivo << "FATURAMENTO MENSAL: " << getFaturamentoMensal() << endl;
         arquivo << endl;
 
-        custoAsg = totalSalarioAsgs/totalSalarios;
-        custoVendedor = totalSalarioVendedores/totalSalarios;
-        custoGerente = totalSalarioGerentes/totalSalarios;
-        
-        arquivo << "Custo ASG(%): " << custoAsg*100 << endl;
-        arquivo << "Custo Vendedor(%): " << custoVendedor*100 << endl;
-        arquivo << "Custo Gerente(%): " << custoGerente*100 << endl;
+        custoAsg = totalSalarioAsgs / totalSalarios;
+        custoVendedor = totalSalarioVendedores / totalSalarios;
+        custoGerente = totalSalarioGerentes / totalSalarios;
+
+        arquivo << "Custo ASG(%): " << custoAsg * 100 << endl;
+        arquivo << "Custo Vendedor(%): " << custoVendedor * 100 << endl;
+        arquivo << "Custo Gerente(%): " << custoGerente * 100 << endl;
         arquivo << endl;
 
         arquivo << "LUCRO DA EMPRESA: " << lucro << endl;
         arquivo << endl;
 
-        if(lucro > 0) arquivo << "SITUAÇÃO: Lucro" << endl;
+        if (lucro > 0)
+            arquivo << "SITUAÇÃO: Lucro" << endl;
 
-        else if(lucro <= 0) arquivo << "SITUAÇÃO: Prejuizo" << endl;
+        else if (lucro <= 0)
+            arquivo << "SITUAÇÃO: Prejuizo" << endl;
 
         arquivo.close();
 
@@ -1012,6 +1013,7 @@ void Empresa::atualizarArquivoAsg()
             arquivo << ii.getMatricula() << endl;
             arquivo << ii.getSalario() << endl;
             arquivo << ii.getAdicionalInsalubridade() << endl;
+            arquivo << ii.getDiasFalta() << endl;
 
             arquivo << "***** Data de ingresso (ano, mes, dia) ****" << endl;
 
@@ -1076,6 +1078,7 @@ void Empresa::atualizarArquivoVendedor()
             arquivo << ii.getMatricula() << endl;
             arquivo << ii.getSalario() << endl;
             arquivo << ii.getTipoVendedor() << endl;
+            arquivo << ii.getDiasFalta() << endl;
 
             arquivo << "***** Data de ingresso (ano, mes, dia) ****" << endl;
 
@@ -1140,6 +1143,7 @@ void Empresa::atualizarArquivoGerente()
             arquivo << ii.getMatricula() << endl;
             arquivo << ii.getSalario() << endl;
             arquivo << ii.getParticipacaoLucros() << endl;
+            arquivo << ii.getDiasFalta() << endl;
 
             arquivo << "***** Data de ingresso (ano, mes, dia) ****" << endl;
 
@@ -1271,9 +1275,8 @@ void Empresa::contratarFuncionario()
                 asg.setSalario(stod(linha2));
                 getline(arquivo, linha2);
                 asg.setAdicionalInsalubridade(stod(linha2));
-                // getline(arquivo, linha2);
-                // Dias de faltas
-                // asg.set
+                getline(arquivo, linha2);
+                asg.setDiasFalta(stoi(linha2));
 
                 getline(arquivo, linha2);
                 getline(arquivo, linha2);
@@ -1332,9 +1335,8 @@ void Empresa::contratarFuncionario()
                 vendedor.setSalario(stod(linha2));
                 getline(arquivo, linha2);
                 vendedor.setTipoVendedor(linha2[0]);
-                // getline(arquivo, linha2);
-                // Dias de faltas
-                // vendedor.set
+                getline(arquivo, linha2);
+                vendedor.setDiasFalta(stoi(linha2));
 
                 getline(arquivo, linha2);
                 getline(arquivo, linha2);
@@ -1392,9 +1394,8 @@ void Empresa::contratarFuncionario()
                 gerente.setSalario(stod(linha2));
                 getline(arquivo, linha2);
                 gerente.setParticipacaoLucros(stod(linha2));
-                // getline(arquivo, linha2);
-                // Dias de faltas
-                // gerente.set
+                getline(arquivo, linha2);
+                gerente.setDiasFalta(stoi(linha2));
 
                 getline(arquivo, linha2);
                 getline(arquivo, linha2);
