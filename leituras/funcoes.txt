@@ -18,7 +18,7 @@ calcularRecisao()
 06
 04
 demitirFuncionario()
-72.412-3
+72.385-9
 2023
 06
 04

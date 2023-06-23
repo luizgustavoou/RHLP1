@@ -834,7 +834,7 @@ bool Empresa::buscaFuncionarioDemite(vector<T> &funcionarios, std::string matric
         {
             escreverArquivoRelatorioDemissional<T>(*it, arquivo, desligamento, cargo);
             existe = true;
-            cout << "Funcionário " << it->getNome() << " demitido com sucesso." << endl;
+            cout << "Funcionário " << cargo << " " << it->getNome() << " demitido com sucesso." << endl;
             funcionarios.erase(it);
             arquivo.close(); // qeuria colocar antes do return existe, mas está empatando (ATT: Está dando erro pois está fechando o arquivo mesmo sem ser o cara, enfim arrumar isso dps)
             break;
@@ -842,6 +842,71 @@ bool Empresa::buscaFuncionarioDemite(vector<T> &funcionarios, std::string matric
     }
 
     return existe;
+}
+
+// A PARTIR DAKI COMEÇA AS FUNCOES DO 3 PROJETO
+
+template <typename T>
+void Empresa::atualizarArquivo(string nomeArquivo, vector<T> &funcionarios, string cargo)
+{
+    try
+    {
+
+        fstream arquivo;
+        arquivo.open(caminhoArquivosLeitura + nomeArquivo, ios::out);
+        if (!arquivo.is_open())
+        {
+            string erroMensagem = "O arquivo " + nomeArquivo + " não foi lido.";
+            throw runtime_error(erroMensagem);
+        }
+
+        int codigoFuncionario = 0;
+
+        for (auto ii : funcionarios)
+        {
+            arquivo << "#########################################################" << endl;
+            arquivo << cargo << " Nº: " << codigoFuncionario << endl;
+            arquivo << "##### DADOS PESSOAIS #####" << endl;
+
+            arquivo << ii.getNome() << endl;
+            arquivo << ii.getCpf() << endl;
+            arquivo << ii.getQtdFilhos() << endl;
+            arquivo << ii.getEstadoCivil() << endl;
+
+            arquivo << "***** Endereço (cidade, cep, bairro, rua e numero) ****" << endl;
+
+            arquivo << ii.getEnderecoPessoal().cidade << endl;
+            arquivo << ii.getEnderecoPessoal().cep << endl;
+            arquivo << ii.getEnderecoPessoal().bairro << endl;
+            arquivo << ii.getEnderecoPessoal().rua << endl;
+            arquivo << ii.getEnderecoPessoal().numero << endl;
+
+            arquivo << "***** Data de nascimento (ano, mes, dia) ****" << endl;
+
+            arquivo << ii.getDataNascimento().ano << endl;
+            arquivo << ii.getDataNascimento().mes << endl;
+            arquivo << ii.getDataNascimento().dia << endl;
+
+            arquivo << "##### DADOS FUNCIONAIS #####" << endl;
+            arquivo << ii.getMatricula() << endl;
+            arquivo << ii.getSalario() << endl;
+            arquivo << ii.getAdicionalInsalubridade() << endl; // vai diferir aki
+
+            arquivo << "***** Data de ingresso (ano, mes, dia) ****" << endl;
+
+            arquivo << ii.getIngressoEmpresa().ano << endl;
+            arquivo << ii.getIngressoEmpresa().mes << endl;
+            arquivo << ii.getIngressoEmpresa().dia << endl;
+
+            codigoFuncionario++;
+        }
+
+        arquivo.close();
+    }
+    catch (exception &e)
+    {
+        cout << "Erro: " << e.what() << endl;
+    }
 }
 
 void Empresa::demitirFuncionario(string matricula, Data desligamento)
@@ -865,7 +930,10 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento)
         vector<Gerente> &gerentes = this->getGerentes();
 
         if (this->buscaFuncionarioDemite<Asg>(asgs, matricula, arquivo, desligamento, "Asg"))
+        {
+            atualizarArquivo<Asg>("asg.txt", asgs, "ASG");
             return;
+        }
         if (this->buscaFuncionarioDemite<Vendedor>(vendedores, matricula, arquivo, desligamento, "Vendedor"))
             return;
         if (this->buscaFuncionarioDemite<Gerente>(gerentes, matricula, arquivo, desligamento, "Gerente"))
