@@ -19,7 +19,9 @@ int main(int argc, char *argv[])
 
     Empresa *atacadoDosCalcado = new Empresa("xxxxxxxx", "yyyyyyyy", 111111, DataHoje);
 
-    atacadoDosCalcado->carregaFuncoes();
+    //atacadoDosCalcado->carregaFuncoes();
+    atacadoDosCalcado->contratarFuncionario();
+
     // atacadoDosCalcado->carregarEmpresa();
     // atacadoDosCalcado->carregarAsg();
     // atacadoDosCalcado->carregarVendedor();

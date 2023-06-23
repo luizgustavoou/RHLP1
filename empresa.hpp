@@ -51,6 +51,7 @@ public:
     void calculaSalarioFuncionario(std::string matricula);
     void calculaTodoOsSalarios();
     void calcularRecisao(std::string matricula, Data desligamento);
+    void contratarFuncionario();
 };
 
 #endif
