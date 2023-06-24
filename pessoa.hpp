@@ -14,6 +14,16 @@ class Pessoa
 
 public:
     Pessoa();
+    /**
+     * @brief Construtor da classe pessoa
+     * 
+     * @param nome 
+     * @param cpf 
+     * @param dataNascimento 
+     * @param enderecoPessoal 
+     * @param estadoCivil 
+     * @param qtdFilhos 
+     */
     Pessoa(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal, std::string estadoCivil, int qtdFilhos);
 
     std::string getNome();
@@ -30,6 +40,10 @@ public:
     void setEstadoCivil(std::string estadoCivil);
     void setQtdFilhos(int qtdFilhos);
 
+    /**
+     * @brief Imprime todos os atributos da classe pessoa
+     * 
+     */
     void imprimirAtributosPessoa();
 };
 
