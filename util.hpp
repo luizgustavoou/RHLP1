@@ -6,6 +6,10 @@
 const std::string caminhoArquivosLeitura = "./leituras/";
 const std::string caminhoArquivosEscrita = "./escrita/";
 
+/**
+ * @brief Estrutura de data para guardar as datas utilizadas nos outros arquivos
+ * 
+ */
 typedef struct _Data
 {
     int ano;
@@ -13,6 +17,10 @@ typedef struct _Data
     int dia;
 } Data;
 
+/**
+ * @brief Estrutura de endereço para guardar os endereços utilizadas nos outros arquivos
+ * 
+ */
 typedef struct _Endereco
 {
     std::string cidade;
@@ -22,6 +30,12 @@ typedef struct _Endereco
     int numero;
 } Endereco;
 
+/**
+ * @brief Função para calcular uma data em anos para calculos de recisões
+ * 
+ * @param data 
+ * @return float 
+ */
 float calcularAnoData(Data data);
 
 #endif
