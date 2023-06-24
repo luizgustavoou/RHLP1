@@ -14,9 +14,13 @@ class Asg : public Pessoa, public Funcionario
     float _adicionalInsalubridade = 0.05;
 
 public:
+    /**
+     * @brief Construir um novo objeto asg.
+     * 
+     */
     Asg();
     /**
-     * @brief Construct a new Asg object
+     * @brief Construir um novo objeto asg.
      *
      * @param nome Nome do asg.
      * @param cpf Cpf do asg.
@@ -35,9 +39,26 @@ public:
     float getAdicionalInsalubridade();
     void setAdicionalInsalubridade(float adicionalInsalubridade);
 
+    /**
+     * @brief Calcular o salário do asg.
+     * O salário é calculado subtraindo o salário dos dias de faltas durante o mes
+     * adicionando a porcentagem de insalubridade e adicionado R$ 100 por filho
+     * @return Retorna um salário
+     */
     float calcularSalario();
+    
+    /**
+     * @brief Calcular o salário da recisão que o asg receberá após o término do contrato.
+     * O salário da recisão é calculado multiplicando o salário do asg pela quantidade de anos trabalhado
+     * @param desligamento Data em que a recisão ocorreu 
+     * @return Retorna o salário da recisão
+     */
     float calcularRecisao(Data desligamento);
 
+    /**
+     * @brief Imprimir os atributos da classe asg.
+     * 
+     */
     void imprimirAtributosAsg();
 };
 
