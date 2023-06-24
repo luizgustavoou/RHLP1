@@ -1,3 +1,14 @@
+/**
+ * @file main.cpp
+ * @author Luiz Gustavo de Oliveira Umbelino, Joab Urbano (luizgustavoombelino@gmail.com)
+ * @brief Inicialização do programa. 
+ * @version 0.1
+ * @date 2023-06-23
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #include <iostream>
 using namespace std;
 
