@@ -779,7 +779,7 @@ void Empresa::calculaTodoOsSalarios()
     try
     {
 
-        string nomeArquivo = "relatorio.txt";
+        string nomeArquivo = "relatorioFinanceiro.txt";
         fstream arquivo;
         arquivo.open(caminhoArquivosEscrita + nomeArquivo, ios::out);
         if (!arquivo.is_open())
