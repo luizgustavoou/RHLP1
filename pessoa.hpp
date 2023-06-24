@@ -3,6 +3,10 @@
 #include <iostream>
 #include "util.hpp"
 
+/**
+ * @brief Classe pessoa
+ * 
+ */
 class Pessoa
 {
     std::string nome;

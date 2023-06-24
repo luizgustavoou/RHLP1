@@ -5,6 +5,10 @@
 #include "funcionario.hpp"
 #include "util.hpp"
 
+/**
+ * @brief Classe gerente
+ * 
+ */
 class Gerente : public Pessoa, public Funcionario
 {
     float _participacaoLucros;
